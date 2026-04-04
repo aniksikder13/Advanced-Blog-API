@@ -58,3 +58,28 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = 'User'
 
 
+class Category(models.Model):
+    id = models.UUIDField(
+            default=uuid.uuid4,
+            editable=False,
+            unique=True,
+            primary_key=True
+        )
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=500, blank=True)
+
+    class Meta:
+        db_table = 'Category'
+
+
+class Tag(models.Model):
+    id = models.UUIDField(
+            default=uuid.uuid4,
+            editable=False,
+            unique=True,
+            primary_key=True
+        )
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'Tag'
