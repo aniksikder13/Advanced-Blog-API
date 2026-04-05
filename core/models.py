@@ -1,5 +1,7 @@
 import uuid
 from django.db import models
+from django.core.validators import MinLengthValidator
+from django.conf import settings
 from django.contrib.auth.models import (
             AbstractBaseUser,
             PermissionsMixin,
@@ -83,3 +85,45 @@ class Tag(models.Model):
 
     class Meta:
         db_table = 'Tag'
+
+
+class Post(models.Model):
+    id = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+        primary_key=True
+    )
+    title = models.CharField(max_length=255)
+    content = models.TextField(
+            max_length=2000,
+            validators=[MinLengthValidator(30)]
+        )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete= models.CASCADE
+    )
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    tags = models.ManyToManyField(Tag)
+
+    class Meta:
+        db_table = 'Post'
+
+
+class Comment(models.Model):
+    id = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+        primary_key=True
+    )
+    text = models.TextField(max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Comment'

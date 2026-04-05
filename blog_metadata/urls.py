@@ -1,14 +1,14 @@
 from django.urls import path, include
 from rest_framework import routers
-from metadata.views import CategryView, TagView
+from blog_metadata.views import CategryView, TagView
 
 
-app_name = 'metadata'
+app_name = 'blog_metadata'
 
 
 router = routers.DefaultRouter()
-router.register('categories', CategryView)
 router.register('tags', TagView)
+router.register('categories', CategryView)
 
 
 urlpatterns = [

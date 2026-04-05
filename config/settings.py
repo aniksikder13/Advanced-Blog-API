@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_spectacular',
     'user',
-    'metadata'
+    'blog_metadata',
+    'blog'
 ]
 
 MIDDLEWARE = [

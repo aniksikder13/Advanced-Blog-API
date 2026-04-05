@@ -1,6 +1,6 @@
-from rest_framework import viewsets, permissions
-from metadata.serializers import CategrySerializer, TagSerializer
 from core.models import Tag, Category
+from rest_framework import viewsets, permissions
+from blog_metadata.serializers import CategrySerializer, TagSerializer
 
 
 class CategryView(viewsets.ModelViewSet):
@@ -13,3 +13,5 @@ class TagView(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
